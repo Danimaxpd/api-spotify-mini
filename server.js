@@ -34,7 +34,7 @@ app.addHook('onClose', (instance, done) => {
 })
 
 // Start listening.
-app.listen({ port: process.env.PORT || 3000 }, (err) => {
+app.listen({ port: process.env.PORT || 3000 }, '0.0.0.0', (err) => {
   if (err) {
     app.log.error(err)
     process.exit(1)
