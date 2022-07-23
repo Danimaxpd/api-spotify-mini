@@ -17,6 +17,11 @@
       crossorigin="anonymous"
     />
     <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
       crossorigin="anonymous"
@@ -41,59 +46,156 @@
           font-size: 3.5rem;
         }
       }
+      .form-signin {
+        max-width: 1024px;
+      }
     </style>
 
     <!-- Custom styles for this template -->
     <link href="floating-labels.css" rel="stylesheet" />
   </head>
   <body>
-    <form class="form-signin">
-      <div class="text-center mb-4">
-        <img
-          class="mb-4"
-          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTE3IiBoZWlnaHQ9IjM1IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Ik05MS40MzYgMTMuMzcySDkwLjAxYS44MzEuODMxIDAgMDAtLjgzMS44MzF2MTAuNDkxYzAgLjQ2LjM3Mi44MzIuODMxLjgzMmgxLjQyN2MuNDYgMCAuODMxLS4zNzMuODMxLS44MzJWMTQuMjAzYS44MzEuODMxIDAgMDAtLjgzLS44MzF6TTkwLjczNCAxMS44ODVhMS45MzQgMS45MzQgMCAxMDAtMy44NjcgMS45MzQgMS45MzQgMCAwMDAgMy44Njd6Ii8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMTQuMzUgMTcuMTUzYTEuOTA2IDEuOTA2IDAgMDEtMS43NTUtMS4xNzcgMS45MDQgMS45MDQgMCAxMTMuNjYyLS43MyAxLjg3OCAxLjg3OCAwIDAxLS41NTMgMS4zNTMgMS45IDEuOSAwIDAxLTEuMzU0LjU1NHptMC0zLjYxNGExLjcxMiAxLjcxMiAwIDEwMS42OTcgMS43MDYgMS42OTUgMS42OTUgMCAwMC0xLjY4Ny0xLjcwNmgtLjAxem0uNDE2IDEuOTAybC41MzguNzUyaC0uNDM4bC0uNDgzLS42OWgtLjQxNnYuNjloLS4zNzlWMTQuMmguODg3Yy40NjIgMCAuNzY2LjIzOC43NjYuNjM2YS41OTQuNTk0IDAgMDEtLjQ2MS42MDNsLS4wMTQuMDAyem0tLjMxNi0uOWgtLjQ5NHYuNjI1aC40OTRjLjI0NSAwIC4zOTMtLjEyLjM5My0uMzE1IDAtLjE5Mi0uMTM3LS4zMS0uMzkzLS4zMXoiLz48L2c+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNy40MzYgMGExNy40MzQgMTcuNDM0IDAgMTAxNy40MzMgMTcuNDNDMzQuODY2IDcuODAyIDI3LjA2MiAwIDE3LjQzNiAwem03Ljk5NCAyNS4xNDVhMS4wODcgMS4wODcgMCAwMS0xLjQ5NS4zNjJjLTQuMDk1LTIuNDk5LTkuMjQ3LTMuMDY3LTE1LjMxNi0xLjY4YTEuMDg3IDEuMDg3IDAgMTEtLjQ4My0yLjExN2M2LjY0MS0xLjUxOCAxMi4zMzgtLjg2NSAxNi45MzQgMS45NDIuNTEuMzEzLjY3Mi45OC4zNiAxLjQ5M3ptMi4xMzQtNC43NDdhMS4zNiAxLjM2IDAgMDEtMS44NzQuNDQ3Yy00LjY4NC0yLjg3OS0xMS44MjktMy43MTMtMTcuMzczLTIuMDMyYTEuMzYxIDEuMzYxIDAgMDEtMS42MzctMS45NSAxLjM2IDEuMzYgMCAwMS44NDgtLjY1YzYuMzMzLTEuOTIgMTQuMjA1LS45OSAxOS41ODQgMi4zMThhMS4zNiAxLjM2IDAgMDEuNDUyIDEuODY3em0uMTgzLTQuOTQyYy01LjYyLTMuMzMxLTE0Ljg5LTMuNjQzLTIwLjI1NC0yLjAxNmExLjYzMyAxLjYzMyAwIDExLS45NDgtMy4xMjJjNi4xNTktMS44NzQgMTYuMzk4LTEuNTA4IDIyLjg2NiAyLjMzMWExLjYzMiAxLjYzMiAwIDAxLTEuNjY0IDIuODA3em0xOS42ODYuNjM5Yy0zLjAxLS43MTgtMy41NC0xLjIyMy0zLjU0LTIuMjkgMC0xIC45NDEtMS42NjYgMi4zNDMtMS42NjYgMS4zNTcgMCAyLjcwNy41MTMgNC4xMTQgMS41NjRhLjIwNC4yMDQgMCAwMC4yMjIuMDA4LjE5My4xOTMgMCAwMC4wNTctLjA1NGwxLjQ3LTIuMDgyYS4yMDguMjA4IDAgMDAtLjAzOC0uMjY4IDguODkyIDguODkyIDAgMDAtNS43ODctMS45OTdjLTMuMjUgMC01LjUyMiAxLjk1Ny01LjUyMiA0Ljc0OSAwIDIuOTkzIDEuOTYgNC4wNSA1LjM0MiA0Ljg2OSAyLjg4Mi42NjUgMy4zNjcgMS4yMiAzLjM2NyAyLjIxNCAwIDEuMS0uOTgzIDEuNzg1LTIuNTY1IDEuNzg1LTEuNzU3IDAtMy4xOS0uNTktNC43ODgtMS45OGEuMTk3LjE5NyAwIDAwLS4yOC4wMjFMNDAuMTggMjIuOTNhLjE5Ni4xOTYgMCAwMC4wMi4yNzMgOS44MjUgOS44MjUgMCAwMDYuNjMyIDIuNTU1YzMuNTAyIDAgNS43NjUtMS45MTMgNS43NjUtNC44NzYgMC0yLjUxMS0xLjQ5NS0zLjg5Ni01LjE2My00Ljc4NnptMTMuMDk3LTIuOTdjLTEuNTE4IDAtMi43NjMuNTk4LTMuNzkxIDEuODI0di0xLjM4YS4yMDguMjA4IDAgMDAtLjE5OC0uMTk3aC0yLjcwNGEuMjA4LjIwOCAwIDAwLS4xOTguMTk3djE1LjMyM2EuMjA5LjIwOSAwIDAwLjE5Ny4xOTdoMi42OTZhLjIwOS4yMDkgMCAwMC4xOTktLjE5N3YtNC44MzdhNC44NDMgNC44NDMgMCAwMDMuOCAxLjcxNWMyLjgyIDAgNS42NzYtMi4xNyA1LjY3Ni02LjMyMXMtMi44NjYtNi4zMjMtNS42NzctNi4zMjN6bTIuNTMyIDYuMzI0YzAgMi4xMTMtMS4zMDIgMy41ODktMy4xNjcgMy41ODktMS44NjYgMC0zLjIzMy0xLjU0My0zLjIzMy0zLjU5IDAtMi4wNDYgMS4zOTEtMy41ODkgMy4yNDMtMy41ODkgMS44NTMgMCAzLjE1NyAxLjUxIDMuMTU3IDMuNTl6bTEwLjQ1Mi02LjMyM2MtMy42MzMgMC02LjQ3OCAyLjc5OC02LjQ3OCA2LjM2OCAwIDMuNTQgMi44MjYgNi4zIDYuNDMzIDYuMyAzLjY0NSAwIDYuNS0yLjc4OCA2LjUtNi4zNDUgMC0zLjU1OC0yLjgzNC02LjMyNC02LjQ1NS02LjMyNHptMCA5LjkzNWMtMS45MzIgMC0zLjM4OS0xLjU1My0zLjM4OS0zLjYxczEuNDA2LTMuNTY2IDMuMzQzLTMuNTY2YzEuOTM5IDAgMy40MTIgMS41NDQgMy40MTIgMy42MSAwIDIuMDY0LTEuNDE1IDMuNTU1LTMuMzY2IDMuNTU1di4wMXptMTQuMjE0LTkuNjloLTIuOTY2di0zLjAzM2EuMjA4LjIwOCAwIDAwLS4xOTgtLjE5OEg4MS44N2EuMjA4LjIwOCAwIDAwLS4xOTguMTk4djMuMDM0aC0xLjI5N2EuMjA4LjIwOCAwIDAwLS4xOTYuMTk3djIuMzE3YS4yMDguMjA4IDAgMDAuMTk2LjE5OGgxLjI5N3Y1Ljk5NGMwIDIuNDIxIDEuMjA2IDMuNjQ5IDMuNTgzIDMuNjQ5YTQuOTE5IDQuOTE5IDAgMDAyLjUyNS0uNjI0LjE5Ny4xOTcgMCAwMC4xLS4xN3YtMi4yMDdhLjE5OC4xOTggMCAwMC0uMjg1LS4xNzcgMy4zODUgMy4zODUgMCAwMS0xLjU4Mi4zOGMtLjg2NCAwLTEuMjUtLjM5My0xLjI1LTEuMjcydi01LjU3NWgyLjk2NmEuMjA4LjIwOCAwIDAwLjE5Ny0uMTk3di0yLjMxNmEuMjA4LjIwOCAwIDAwLS4yLS4xOTdoLjAwMnptMTAuMzM0LjAxM3YtLjM3M2MwLTEuMDk0LjQxNi0xLjU4MyAxLjM2MS0xLjU4M2E0LjU3NyA0LjU3NyAwIDAxMS41Mi4yOC4xOTcuMTk3IDAgMDAuMjYtLjE4N1Y5LjI0OGEuMjEzLjIxMyAwIDAwLS4wNDEtLjExNy4yMDYuMjA2IDAgMDAtLjA5OS0uMDczIDcuNCA3LjQgMCAwMC0yLjI0LS4zMjNjLTIuNDk4IDAtMy44MDYgMS40MDItMy44MDYgNC4wNTR2LjU3aC0xLjI5NWEuMjA5LjIwOSAwIDAwLS4yMDguMTk4djIuMzNhLjIwOC4yMDggMCAwMC4yMDguMTk3aDEuMjk1djkuMjQ1YS4yMDguMjA4IDAgMDAuMTk2LjE5OGgyLjY5NmEuMjA4LjIwOCAwIDAwLjE5OC0uMTk4di05LjI0N2gyLjUxOGwzLjg1NSA5LjI0NGMtLjQzNy45NzEtLjg2OCAxLjE2NC0xLjQ1NyAxLjE2NGEzLjEwNyAzLjEwNyAwIDAxLTEuNDg2LS40MTcuMjA5LjIwOSAwIDAwLS4xNTctLjAxNS4yMDYuMjA2IDAgMDAtLjExNi4xMDZsLS45MTQgMi4wMDZhLjE5OC4xOTggMCAwMC4wODUuMjUzIDUuNjc2IDUuNjc2IDAgMDAyLjg3OS43MzdjMS45OTEgMCAzLjA5LS45MjYgNC4wNi0zLjQybDQuNjc2LTEyLjA3NWEuMjAxLjIwMSAwIDAwLS4wMjEtLjE4Mi4yLjIgMCAwMC0uMTYzLS4wODdoLTIuODA2YS4yMS4yMSAwIDAwLS4xMTQuMDM5LjIxMi4yMTIgMCAwMC0uMDczLjA5NWwtMi44NzUgOC4yMS0zLjE0OC04LjIzYS4xOTQuMTk0IDAgMDAtLjE4My0uMTI2aC00LjYwNXoiIGZpbGw9IiMwMDAiLz48ZGVmcz48Y2xpcFBhdGggaWQ9ImNsaXAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDExNi4zNzV2MzVIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4="
-          alt="Image logo Spotify"
-        /> 
-        <h1 class="h3 mb-3 font-weight-normal text-info">This is a non-commercial API</h1>
-        <p class="text-danger">
-          Remember to add
-          <strong>https://{{host}}/callback</strong> as a
-          redirect uri in your app.
-        </p>
-        <p class="text-danger">Your keys will be storage in a sqlite database in this server</p>
-      </div>
-      <div class="form-label-group">
-        <input
-          type="text"
-          id="inputEmail"
-          class="form-control"
-          placeholder="Client Id"
-          required
-          autofocus
-        />
-        <label for="ClientId">Client Id</label>
+    <div class="form-signin">
+      <form>
+        <div class="text-center mb-4">
+          <img
+            class="mb-4"
+            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTE3IiBoZWlnaHQ9IjM1IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Ik05MS40MzYgMTMuMzcySDkwLjAxYS44MzEuODMxIDAgMDAtLjgzMS44MzF2MTAuNDkxYzAgLjQ2LjM3Mi44MzIuODMxLjgzMmgxLjQyN2MuNDYgMCAuODMxLS4zNzMuODMxLS44MzJWMTQuMjAzYS44MzEuODMxIDAgMDAtLjgzLS44MzF6TTkwLjczNCAxMS44ODVhMS45MzQgMS45MzQgMCAxMDAtMy44NjcgMS45MzQgMS45MzQgMCAwMDAgMy44Njd6Ii8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMTQuMzUgMTcuMTUzYTEuOTA2IDEuOTA2IDAgMDEtMS43NTUtMS4xNzcgMS45MDQgMS45MDQgMCAxMTMuNjYyLS43MyAxLjg3OCAxLjg3OCAwIDAxLS41NTMgMS4zNTMgMS45IDEuOSAwIDAxLTEuMzU0LjU1NHptMC0zLjYxNGExLjcxMiAxLjcxMiAwIDEwMS42OTcgMS43MDYgMS42OTUgMS42OTUgMCAwMC0xLjY4Ny0xLjcwNmgtLjAxem0uNDE2IDEuOTAybC41MzguNzUyaC0uNDM4bC0uNDgzLS42OWgtLjQxNnYuNjloLS4zNzlWMTQuMmguODg3Yy40NjIgMCAuNzY2LjIzOC43NjYuNjM2YS41OTQuNTk0IDAgMDEtLjQ2MS42MDNsLS4wMTQuMDAyem0tLjMxNi0uOWgtLjQ5NHYuNjI1aC40OTRjLjI0NSAwIC4zOTMtLjEyLjM5My0uMzE1IDAtLjE5Mi0uMTM3LS4zMS0uMzkzLS4zMXoiLz48L2c+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNy40MzYgMGExNy40MzQgMTcuNDM0IDAgMTAxNy40MzMgMTcuNDNDMzQuODY2IDcuODAyIDI3LjA2MiAwIDE3LjQzNiAwem03Ljk5NCAyNS4xNDVhMS4wODcgMS4wODcgMCAwMS0xLjQ5NS4zNjJjLTQuMDk1LTIuNDk5LTkuMjQ3LTMuMDY3LTE1LjMxNi0xLjY4YTEuMDg3IDEuMDg3IDAgMTEtLjQ4My0yLjExN2M2LjY0MS0xLjUxOCAxMi4zMzgtLjg2NSAxNi45MzQgMS45NDIuNTEuMzEzLjY3Mi45OC4zNiAxLjQ5M3ptMi4xMzQtNC43NDdhMS4zNiAxLjM2IDAgMDEtMS44NzQuNDQ3Yy00LjY4NC0yLjg3OS0xMS44MjktMy43MTMtMTcuMzczLTIuMDMyYTEuMzYxIDEuMzYxIDAgMDEtMS42MzctMS45NSAxLjM2IDEuMzYgMCAwMS44NDgtLjY1YzYuMzMzLTEuOTIgMTQuMjA1LS45OSAxOS41ODQgMi4zMThhMS4zNiAxLjM2IDAgMDEuNDUyIDEuODY3em0uMTgzLTQuOTQyYy01LjYyLTMuMzMxLTE0Ljg5LTMuNjQzLTIwLjI1NC0yLjAxNmExLjYzMyAxLjYzMyAwIDExLS45NDgtMy4xMjJjNi4xNTktMS44NzQgMTYuMzk4LTEuNTA4IDIyLjg2NiAyLjMzMWExLjYzMiAxLjYzMiAwIDAxLTEuNjY0IDIuODA3em0xOS42ODYuNjM5Yy0zLjAxLS43MTgtMy41NC0xLjIyMy0zLjU0LTIuMjkgMC0xIC45NDEtMS42NjYgMi4zNDMtMS42NjYgMS4zNTcgMCAyLjcwNy41MTMgNC4xMTQgMS41NjRhLjIwNC4yMDQgMCAwMC4yMjIuMDA4LjE5My4xOTMgMCAwMC4wNTctLjA1NGwxLjQ3LTIuMDgyYS4yMDguMjA4IDAgMDAtLjAzOC0uMjY4IDguODkyIDguODkyIDAgMDAtNS43ODctMS45OTdjLTMuMjUgMC01LjUyMiAxLjk1Ny01LjUyMiA0Ljc0OSAwIDIuOTkzIDEuOTYgNC4wNSA1LjM0MiA0Ljg2OSAyLjg4Mi42NjUgMy4zNjcgMS4yMiAzLjM2NyAyLjIxNCAwIDEuMS0uOTgzIDEuNzg1LTIuNTY1IDEuNzg1LTEuNzU3IDAtMy4xOS0uNTktNC43ODgtMS45OGEuMTk3LjE5NyAwIDAwLS4yOC4wMjFMNDAuMTggMjIuOTNhLjE5Ni4xOTYgMCAwMC4wMi4yNzMgOS44MjUgOS44MjUgMCAwMDYuNjMyIDIuNTU1YzMuNTAyIDAgNS43NjUtMS45MTMgNS43NjUtNC44NzYgMC0yLjUxMS0xLjQ5NS0zLjg5Ni01LjE2My00Ljc4NnptMTMuMDk3LTIuOTdjLTEuNTE4IDAtMi43NjMuNTk4LTMuNzkxIDEuODI0di0xLjM4YS4yMDguMjA4IDAgMDAtLjE5OC0uMTk3aC0yLjcwNGEuMjA4LjIwOCAwIDAwLS4xOTguMTk3djE1LjMyM2EuMjA5LjIwOSAwIDAwLjE5Ny4xOTdoMi42OTZhLjIwOS4yMDkgMCAwMC4xOTktLjE5N3YtNC44MzdhNC44NDMgNC44NDMgMCAwMDMuOCAxLjcxNWMyLjgyIDAgNS42NzYtMi4xNyA1LjY3Ni02LjMyMXMtMi44NjYtNi4zMjMtNS42NzctNi4zMjN6bTIuNTMyIDYuMzI0YzAgMi4xMTMtMS4zMDIgMy41ODktMy4xNjcgMy41ODktMS44NjYgMC0zLjIzMy0xLjU0My0zLjIzMy0zLjU5IDAtMi4wNDYgMS4zOTEtMy41ODkgMy4yNDMtMy41ODkgMS44NTMgMCAzLjE1NyAxLjUxIDMuMTU3IDMuNTl6bTEwLjQ1Mi02LjMyM2MtMy42MzMgMC02LjQ3OCAyLjc5OC02LjQ3OCA2LjM2OCAwIDMuNTQgMi44MjYgNi4zIDYuNDMzIDYuMyAzLjY0NSAwIDYuNS0yLjc4OCA2LjUtNi4zNDUgMC0zLjU1OC0yLjgzNC02LjMyNC02LjQ1NS02LjMyNHptMCA5LjkzNWMtMS45MzIgMC0zLjM4OS0xLjU1My0zLjM4OS0zLjYxczEuNDA2LTMuNTY2IDMuMzQzLTMuNTY2YzEuOTM5IDAgMy40MTIgMS41NDQgMy40MTIgMy42MSAwIDIuMDY0LTEuNDE1IDMuNTU1LTMuMzY2IDMuNTU1di4wMXptMTQuMjE0LTkuNjloLTIuOTY2di0zLjAzM2EuMjA4LjIwOCAwIDAwLS4xOTgtLjE5OEg4MS44N2EuMjA4LjIwOCAwIDAwLS4xOTguMTk4djMuMDM0aC0xLjI5N2EuMjA4LjIwOCAwIDAwLS4xOTYuMTk3djIuMzE3YS4yMDguMjA4IDAgMDAuMTk2LjE5OGgxLjI5N3Y1Ljk5NGMwIDIuNDIxIDEuMjA2IDMuNjQ5IDMuNTgzIDMuNjQ5YTQuOTE5IDQuOTE5IDAgMDAyLjUyNS0uNjI0LjE5Ny4xOTcgMCAwMC4xLS4xN3YtMi4yMDdhLjE5OC4xOTggMCAwMC0uMjg1LS4xNzcgMy4zODUgMy4zODUgMCAwMS0xLjU4Mi4zOGMtLjg2NCAwLTEuMjUtLjM5My0xLjI1LTEuMjcydi01LjU3NWgyLjk2NmEuMjA4LjIwOCAwIDAwLjE5Ny0uMTk3di0yLjMxNmEuMjA4LjIwOCAwIDAwLS4yLS4xOTdoLjAwMnptMTAuMzM0LjAxM3YtLjM3M2MwLTEuMDk0LjQxNi0xLjU4MyAxLjM2MS0xLjU4M2E0LjU3NyA0LjU3NyAwIDAxMS41Mi4yOC4xOTcuMTk3IDAgMDAuMjYtLjE4N1Y5LjI0OGEuMjEzLjIxMyAwIDAwLS4wNDEtLjExNy4yMDYuMjA2IDAgMDAtLjA5OS0uMDczIDcuNCA3LjQgMCAwMC0yLjI0LS4zMjNjLTIuNDk4IDAtMy44MDYgMS40MDItMy44MDYgNC4wNTR2LjU3aC0xLjI5NWEuMjA5LjIwOSAwIDAwLS4yMDguMTk4djIuMzNhLjIwOC4yMDggMCAwMC4yMDguMTk3aDEuMjk1djkuMjQ1YS4yMDguMjA4IDAgMDAuMTk2LjE5OGgyLjY5NmEuMjA4LjIwOCAwIDAwLjE5OC0uMTk4di05LjI0N2gyLjUxOGwzLjg1NSA5LjI0NGMtLjQzNy45NzEtLjg2OCAxLjE2NC0xLjQ1NyAxLjE2NGEzLjEwNyAzLjEwNyAwIDAxLTEuNDg2LS40MTcuMjA5LjIwOSAwIDAwLS4xNTctLjAxNS4yMDYuMjA2IDAgMDAtLjExNi4xMDZsLS45MTQgMi4wMDZhLjE5OC4xOTggMCAwMC4wODUuMjUzIDUuNjc2IDUuNjc2IDAgMDAyLjg3OS43MzdjMS45OTEgMCAzLjA5LS45MjYgNC4wNi0zLjQybDQuNjc2LTEyLjA3NWEuMjAxLjIwMSAwIDAwLS4wMjEtLjE4Mi4yLjIgMCAwMC0uMTYzLS4wODdoLTIuODA2YS4yMS4yMSAwIDAwLS4xMTQuMDM5LjIxMi4yMTIgMCAwMC0uMDczLjA5NWwtMi44NzUgOC4yMS0zLjE0OC04LjIzYS4xOTQuMTk0IDAgMDAtLjE4My0uMTI2aC00LjYwNXoiIGZpbGw9IiMwMDAiLz48ZGVmcz48Y2xpcFBhdGggaWQ9ImNsaXAwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDExNi4zNzV2MzVIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4="
+            alt="Image logo Spotify"
+          />
+          <h1 class="h3 mb-3 font-weight-normal text-info">
+            This is a non-commercial API
+          </h1>
+          <p class="text-danger">
+            Remember to add
+            <strong>https://{{ host }}/callback</strong> as a redirect uri in
+            your app.
+          </p>
+          <p class="text-danger">
+            Your keys will be storage in a sqlite database in this server, to
+            removed DM me
+            <a href="mailto:contacto@techno-hero.com" class="hover-style-link"
+              >contacto@techno-hero.com</a
+            >
+          </p>
+        </div>
+        <div class="form-label-group">
+          <input
+            type="text"
+            id="clientId"
+            name="clientId"
+            class="form-control"
+            placeholder="Client Id"
+            required
+            autofocus
+          />
+          <label for="ClientId">Client Id</label>
+        </div>
+
+        <div class="form-label-group">
+          <input
+            type="text"
+            id="clientSecrect"
+            name="clientSecrect"
+            class="form-control"
+            placeholder="Client Secret"
+            required
+          />
+          <label for="clientSecret">Client Secret</label>
+        </div>
+      </form>
+      <div class="my-2">
+        <strong> Choose your Scopes </strong>
+        <ul class="nav p-4" id="scopesMenu"></ul>
+        <input type="checkbox" id="selectAll" /> Check All
+        <hr />
       </div>
 
-      <div class="form-label-group">
-        <input
-          type="text"
-          id="inputPassword"
-          class="form-control"
-          placeholder="Client Secret"
-          required
-        />
-        <label for="clientSecret">Client Secret</label>
-      </div>
-
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Authorized
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        type="button"
+        onclick="submitForm();"
+      >
+        Save & Authorized
       </button>
-      <hr>
-      <a class="text-info" href="https://paypal.me/danimaxpd?country.x=CO&locale.x=es_XC" target="_blank">invite me a cup of tea ☕</a>
+      <hr />
+      <a
+        class="text-info"
+        href="https://paypal.me/danimaxpd?country.x=CO&locale.x=es_XC"
+        target="_blank"
+        >invite me a cup of tea ☕</a
+      >
       <p class="mt-5 mb-3 text-muted text-center">
         &copy; 2022
         <a href="https://techno-hero.com" target="_blank">techno-hero.com</a>
       </p>
-    </form>
+    </div>
   </body>
+
+  <script>
+    const data = {
+      scopes: [
+        "ugc-image-upload",
+        "user-read-recently-played",
+        "user-top-read",
+        "user-read-playback-position",
+        "user-read-playback-state",
+        "user-modify-playback-state",
+        "user-read-currently-playing",
+        "app-remote-control",
+        "playlist-modify-public",
+        "playlist-modify-private",
+        "playlist-read-private",
+        "playlist-read-collaborative",
+        "user-follow-modify",
+        "user-follow-read",
+        "user-library-modify",
+        "user-library-read",
+        "user-read-email",
+        "user-read-private",
+      ],
+    };
+
+    assetList = $("#scopesMenu");
+    $.each(data.scopes, function (i) {
+      const li = $("<li/>")
+        .addClass("nav-item mr-5")
+        .attr("role", "menuitem")
+        .appendTo(assetList);
+
+      const input = $("<input/>")
+        .addClass("form-check-input")
+        .attr("type", "checkbox")
+        .prop("name", "scopes[]")
+        .prop("value", data.scopes[i])
+        .appendTo(li);
+
+      const aaa = $("</p>")
+        .addClass("form-check-label")
+        .text(data.scopes[i])
+        .appendTo(li);
+    });
+
+    $("#selectAll").click(function () {
+      $("input:checkbox").prop("checked", this.checked);
+    });
+
+    function submitForm() {
+      let checkedScopes = $('input[name="scopes[]"]')
+        .map(function () {
+          return $(this).val();
+        })
+        .get();
+      const form = $("form").serializeArray();
+      const dataForm = JSON.stringify(form.concat({'scopes': checkedScopes}));
+      $.ajax({
+        method: "POST",
+        url: "/api/v1/save-keys",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: dataForm,
+      });
+      return false;
+    }
+  </script>
 </html>
