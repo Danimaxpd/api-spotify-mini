@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Item', {
+    return sequelize.define('SpotifyKeys', {
         client_id: DataTypes.STRING,
         client_secret: DataTypes.STRING,
         access_token: DataTypes.STRING,

@@ -2,6 +2,7 @@
 
 const fp = require('fastify-plugin')
 require('dotenv').config()
+const config = require('../config/config.json')
 
 /**
  * This plugins adds some utilities to handle http errors
@@ -9,6 +10,7 @@ require('dotenv').config()
  * @see https://github.com/hsynlms/sequelize-fastify
  */
 module.exports = fp(async function (fastify, opts) {
+    console.info('config-->>', fastify, config);
     const typeDialect = process.env.DIALECT_NAME || 'sqlite';
     const options = (typeDialect === 'sqlite') ? {
         sequelizeOptions: {
@@ -28,18 +30,5 @@ module.exports = fp(async function (fastify, opts) {
         }
     };
 
-    fastify.register(require('sequelize-fastify'), { instance: 'db', sequelizeOptions: options.sequelizeOptions }).ready(async () => {
-        try {
-            // first connection
-            await fastify.db.authenticate()
-
-            console.log(
-                'Database connection is successfully established.'
-            )
-        } catch (err) {
-            console.log(
-                `Connection could not established: ${err}`
-            )
-        }
-    })
+    fastify.register(require('@easterneas/fastify-sequelize'), { sequelizeOptions: options.sequelizeOptions });
 })

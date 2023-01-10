@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@easterneas/fastify-sequelize": "^1.1.1",
     "@fastify/autoload": "^5.0.0",
     "@fastify/sensible": "^4.1.0",
     "@fastify/url-data": "^5.0.0",
@@ -23,7 +24,7 @@
     "fastify-cli": "^4.1.1",
     "fastify-plugin": "^3.0.0",
     "liquidjs": "^9.37.0",
-    "sequelize-fastify": "^2.0.0",
+    "mysql2": "^2.3.3",
     "sqlite3": "^5.0.8",
     "tedious": "^14.5.0"
   },
