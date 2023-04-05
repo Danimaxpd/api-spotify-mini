@@ -23,7 +23,7 @@
     "fastify": "^4.0.0",
     "fastify-cli": "^4.1.1",
     "fastify-plugin": "^3.0.0",
-    "liquidjs": "^9.37.0",
+    "liquidjs": "^10.7.0",
     "mysql2": "^2.3.3",
     "sqlite3": "^5.0.8",
     "tedious": "^14.5.0"
