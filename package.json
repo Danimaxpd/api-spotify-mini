@@ -25,6 +25,7 @@
     "fastify-plugin": "^3.0.0",
     "liquidjs": "^10.7.0",
     "mysql2": "^2.3.3",
+    "pino": "^8.11.0",
     "sqlite3": "^5.0.8",
     "tedious": "^14.5.0"
   },
