@@ -1,7 +1,7 @@
 {
-  "name": "spotifyminiapi",
+  "name": "EasySpotifyWebAPI",
   "version": "0.1.0",
-  "description": "This project was bootstrapped with Fastify-CLI.",
+  "description": "David R Jimenez M Project Easy Spotify Web API",
   "main": "app.js",
   "directories": {
     "test": "test"
