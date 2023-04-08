@@ -12,10 +12,22 @@ const closeWithGrace = require('close-with-grace')
 
 
 // Instantiate Fastify with some config
+const envToLogger = {
+  development: {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        translateTime: 'HH:MM:ss Z',
+        ignore: 'pid,hostname',
+      },
+    },
+  },
+  production: true,
+  test: false,
+}
 const app = Fastify({
-  logger: true
+  logger: envToLogger[environment] ?? true
 })
-
 // Register your application as a normal plugin.
 const appService = require('./app.js')
 app.register(appService);
