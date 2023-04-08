@@ -1,8 +1,7 @@
 'use strict'
+require('dotenv').config()
 
 const fp = require('fastify-plugin')
-require('dotenv').config()
-const config = require('../config/config.json')
 
 /**
  * This plugins adds some utilities to handle http errors
@@ -10,25 +9,20 @@ const config = require('../config/config.json')
  * @see https://github.com/hsynlms/sequelize-fastify
  */
 module.exports = fp(async function (fastify, opts) {
-    console.info('config-->>', fastify, config);
+    const enviroment = process.env.NODE_ENV || development;
     const typeDialect = process.env.DIALECT_NAME || 'sqlite';
     const options = (typeDialect === 'sqlite') ? {
-        sequelizeOptions: {
-            dialect: 'sqlite',
-            storage: '../db/database.sqlite'
-        }
+        "dialect": typeDialect,
+        "storage": process.env.DATABASE_STORAGE || '../db/database.sqlite'
     } : {
-        sequelizeOptions: {
-            dialect: typeDialect, /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
-            database: process.env.DATABASE_NAME,
-            username: process.env.DATABASE_USER_NAME,
-            password: process.env.DATABASE_USER_PASSWORD,
-            options: {
-                host: process.env.DATABASE_HOST_OR_SERVER,
-                port: process.env.DATABASE_PORT,
-            }
-        }
+        "username": process.env.DATABASE_USER_NAME,
+        "password": process.env.DATABASE_USER_PASSWORD,
+        "database": process.env.DATABASE_NAME,
+        "host": process.env.DATABASE_HOST_OR_SERVER,
+        "dialect": typeDialect,
+        "port": process.env.DATABASE_PORT,
+        "logging": process.env.DATABASE_LOGGING || false
     };
-
-    fastify.register(require('@easterneas/fastify-sequelize'), { sequelizeOptions: options.sequelizeOptions });
+    const configuration = { [enviroment] :  options};
+    fastify.register(require('@easterneas/fastify-sequelize'), configuration);
 })

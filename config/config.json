@@ -1,8 +1,9 @@
 {
+  "__comment__": "this is default configuration overwrite by .env file on internal configuration cli generated.",
   "development": {
     "username": "root",
     "password": "root",
-    "database": "database_development",
+    "database": "test_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "port": "3306"
@@ -10,14 +11,14 @@
   "test": {
     "username": "root",
     "password": "root",
-    "database": "database_test",
+    "database": "test_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "port": "3306"
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "root",
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
