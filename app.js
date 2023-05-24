@@ -2,9 +2,11 @@
 
 const path = require('path')
 const AutoLoad = require('@fastify/autoload')
+const  {onSendHandler} = require("./hooks/index");
 
 module.exports = async function (fastify, opts) {
-  // Generate Liquid Engine
+  // Hooks
+  onSendHandler(fastify)
 
   // Do not touch the following lines
 

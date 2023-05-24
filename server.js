@@ -9,8 +9,6 @@ import Fastify from "fastify"
 // Require library to exit fastify process, gracefully (if possible)
 const closeWithGrace = require('close-with-grace')
 
-
-
 // Instantiate Fastify with some config
 const envToLogger = {
   development: {

@@ -1,25 +1,22 @@
 'use strict'
 
-const addHooks = require('./hooks')
-const adminKeysServices = require('../../../services/api/adminKeys');
+const adminKeysController = require('../../../controllers/adminKeysController');
 
 module.exports = async function (fastify, opts) {
-  // Hooks
-  addHooks(fastify)
   // Routes
   fastify.get('/callback', async function (request, reply) {
     return 'this is an example'
   })
   fastify.get('/keys-info', async function (request, reply) {
     const models = this.models;
-    return adminKeysServices.getKeysInfo(request, reply, models);
+    return adminKeysController.getKeysInfo(request, reply, models);
   })
   fastify.get('/keys-info/:client_id', async function (request, reply) {
     const models = this.models;
-    return adminKeysServices.getKeysInfoById(request, reply, models);
+    return adminKeysController.getKeysInfoById(request, reply, models);
   })
   fastify.post('/save-keys', async function (request, reply) {
     const models = this.models;
-    return adminKeysServices.storeKeys(request, reply, models);
+    return adminKeysController.storeKeys(request, reply, models);
   })
 }
