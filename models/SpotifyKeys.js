@@ -12,5 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         }
+    },{
+        timestamps: true
     });
 };
