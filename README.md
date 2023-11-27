@@ -16,7 +16,7 @@ I created this project Following the documentation here -> [https://developer.sp
 [Postman-documentation](https://documenter.getpostman.com/view/3184279/2s93XsX5jM)
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run:  
 
 ### `npm run dev`
 
