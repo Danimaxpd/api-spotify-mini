@@ -14,7 +14,7 @@ I created this project Following the documentation here -> [https://developer.sp
 
 ## Documentation
 
-[Postman-documentation](https://documenter.getpostman.com/view/3184279/2s93XsX5jM)
+@todo
 
 ## Available Scripts
 
